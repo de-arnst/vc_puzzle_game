@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Генератор пазлов — загрузите изображение и соберите пазл">
+  <title>Генератор пазлов</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <!-- Шаг 1: Настройка -->
+    <section id="stepSetup" class="step" aria-labelledby="setupTitle">
+      <div class="setup-header">
+        <h2 id="setupTitle" class="step__title" data-i18n="setupTitle">Загрузите изображение</h2>
+        <div class="lang-selector">
+          <label for="langSelect" class="lang-selector__label" data-i18n="langLabel">Язык:</label>
+          <span id="langFlag" class="lang-selector__flag fi" aria-hidden="true"></span>
+          <select id="langSelect" class="settings__control lang-selector__select" data-i18n-aria="selectLangLabel">
+            <!-- options injected by JS -->
+          </select>
+        </div>
+      </div>
+
+      <div id="historyBlock" class="history-block" hidden>
+        <h3 class="history-block__title" data-i18n="historyTitle">Выбрать из ранее собранных</h3>
+        <div id="historyList" class="history-list"></div>
+      </div>
+
+      <label class="upload-zone" id="uploadZone" tabindex="0">
+        <span class="upload-zone__icon" aria-hidden="true">📁</span>
+        <span class="upload-zone__hint" data-i18n="uploadHint">Нажмите для выбора файла или перетащите сюда</span>
+        <input
+          type="file"
+          id="fileInput"
+          class="upload-zone__input"
+          accept="image/png, image/jpeg, image/jpg"
+          aria-label="Выберите изображение"
+        >
+      </label>
+
+      <div id="previewContainer" class="preview-container" hidden>
+        <img id="previewImage" class="preview" src="" alt="">
+      </div>
+
+      <div class="settings">
+        <label for="piecesCount" class="settings__label" data-i18n="piecesCountLabel">Количество деталей:</label>
+        <select id="piecesCount" class="settings__control" aria-describedby="piecesHint">
+          <!-- options injected by JS -->
+        </select>
+      </div>
+
+      <button type="button" id="generateBtn" class="btn" disabled data-i18n="generateBtn">
+        Сгенерировать пазл
+      </button>
+    </section>
+
+    <!-- Шаг 2: Игра -->
+    <section id="stepGame" class="step" hidden aria-labelledby="gameTitle">
+      <h2 id="gameTitle" class="step__title visually-hidden" data-i18n="gameTitle">Соберите пазл</h2>
+
+      <div class="game">
+        <div id="gameArea" class="game__area" role="application" aria-label="Игровая область пазла"></div>
+        <div id="previewThumb" class="game__preview" aria-hidden="true"></div>
+      </div>
+
+      <footer class="game-footer">
+        <p id="progressText" class="game-footer__progress" aria-live="polite">
+          Собрано: 0/0
+        </p>
+        <button type="button" id="resetBtn" class="btn" data-i18n="resetBtn">
+          Начать заново
+        </button>
+      </footer>
+    </section>
+  </main>
+
+  <div id="confettiContainer" class="confetti" aria-hidden="true"></div>
+
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

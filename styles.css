@@ -1,0 +1,463 @@
+/* ==========================================================================
+   Puzzle Game — Design Tokens & Base
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --color-primary: #667eea;
+  --color-primary-dark: #764ba2;
+  --color-primary-light: #f0f3ff;
+  --color-surface: #ffffff;
+  --color-surface-dim: #f5f5f5;
+  --color-text: #333333;
+  --color-text-muted: #666666;
+  --color-border: #e0e0e0;
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-primary-alpha: rgba(102, 126, 234, 0.05);
+
+  /* Shadows */
+  --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 20px 60px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+  /* Spacing */
+  --space-xs: 5px;
+  --space-sm: 10px;
+  --space-md: 20px;
+  --space-lg: 30px;
+  --space-xl: 40px;
+
+  /* Radius */
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 20px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+
+  /* Layout */
+  --game-area-min-height: 850px;
+  --preview-size: 150px;
+  --container-max-width: 1200px;
+}
+
+/* ==========================================================================
+   Reset & Base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.app {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-lg);
+  max-width: var(--container-max-width);
+  width: 95%;
+}
+
+/* ==========================================================================
+   Steps & Visibility
+   ========================================================================== */
+
+.step {
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.step[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.preview-container {
+  margin-top: var(--space-md);
+}
+
+/* ==========================================================================
+   History
+   ========================================================================== */
+
+.history-block {
+  margin-bottom: var(--space-md);
+}
+
+.history-block__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-sm);
+}
+
+.history-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.history-item {
+  width: 80px;
+  height: 80px;
+  padding: 0;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  overflow: hidden;
+  background: var(--color-surface-dim);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.history-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.history-item__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+.setup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.lang-selector {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.lang-selector__label {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.lang-selector__flag {
+  width: 1.5em;
+  height: 1em;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.lang-selector__select {
+  width: auto;
+  min-width: 120px;
+}
+
+.step__title {
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.setup-header .step__title {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Upload Area
+   ========================================================================== */
+
+.upload-zone {
+  display: block;
+  border: 3px dashed var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  cursor: pointer;
+  transition: background var(--transition-base), border-color var(--transition-base);
+}
+
+.upload-zone:hover,
+.upload-zone:focus-within {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary-dark);
+}
+
+.upload-zone__icon {
+  display: block;
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.upload-zone__hint {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+.upload-zone__input {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+/* ==========================================================================
+   Preview
+   ========================================================================== */
+
+.preview {
+  max-width: 100%;
+  max-height: 300px;
+  margin: var(--space-md) 0;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: block;
+}
+
+/* ==========================================================================
+   Form Controls
+   ========================================================================== */
+
+.settings {
+  margin: var(--space-md) 0;
+}
+
+.settings__label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.settings__control {
+  width: 100%;
+  padding: var(--space-sm);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color var(--transition-base);
+}
+
+.settings__control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: var(--color-surface);
+  border: none;
+  padding: 12px var(--space-lg);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ==========================================================================
+   Game Area
+   ========================================================================== */
+
+.game {
+  position: relative;
+  width: 100%;
+  min-height: var(--game-area-min-height);
+  background: var(--color-surface-dim);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.game__area {
+  position: relative;
+  width: 100%;
+  min-height: var(--game-area-min-height);
+}
+
+.game__assembly-frame {
+  position: absolute;
+  border: 3px dashed var(--color-primary);
+  border-radius: var(--radius-md);
+  pointer-events: none;
+  z-index: 0;
+  background: var(--color-primary-alpha);
+}
+
+.game__preview {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: var(--preview-size);
+  height: var(--preview-size);
+  border: 3px solid var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.game__preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ==========================================================================
+   Puzzle Pieces
+   ========================================================================== */
+
+.puzzle-piece {
+  position: absolute;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  transition: box-shadow var(--transition-base);
+  z-index: 1;
+}
+
+.puzzle-piece:hover {
+  box-shadow: var(--shadow-sm);
+  z-index: 2;
+}
+
+.puzzle-piece:active {
+  cursor: grabbing;
+}
+
+.puzzle-piece.is-dragging {
+  opacity: 0.9;
+  z-index: 1000;
+}
+
+.puzzle-piece[data-correct="true"] {
+  cursor: default;
+  z-index: 0;
+}
+
+/* ==========================================================================
+   Game Footer
+   ========================================================================== */
+
+.game-footer {
+  margin-top: var(--space-md);
+  text-align: center;
+}
+
+.game-footer__progress {
+  color: var(--color-text);
+  font-weight: 500;
+  margin-bottom: var(--space-md);
+}
+
+.game-footer__progress[aria-live="polite"] {
+  min-height: 1.5em;
+}
+
+/* ==========================================================================
+   Victory Overlay
+   ========================================================================== */
+
+.victory {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: var(--color-surface);
+  padding: var(--space-xl) 5rem;
+  border-radius: var(--radius-xl);
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  z-index: 10000;
+  animation: victory-in 0.5s ease forwards;
+}
+
+@keyframes victory-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* ==========================================================================
+   Confetti
+   ========================================================================== */
+
+.confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.confetti__item {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  will-change: transform;
+}
